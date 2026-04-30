@@ -31,15 +31,14 @@ def main():
         from docmagic.server import mcp
         mcp.run()
     elif args.command == "scan":
-        from docmagic.server import scan_repo
+        from docmagic.core import scan_repo
         print(scan_repo(args.path, args.backend))
     elif args.command == "hidden":
-        from docmagic.server import find_hidden_connections
-        print(find_hidden_connections(args.path))
+        from docmagic.core import find_hidden
+        print(find_hidden(args.path))
     elif args.command == "annotate":
-        from docmagic.repair.annotate import generate_annotations
-        from pathlib import Path
-        print(generate_annotations(Path(args.path), dry_run=not args.apply))
+        from docmagic.core import gen_annotations
+        print(gen_annotations(args.path, dry_run=not args.apply))
 
 if __name__ == "__main__":
     main()
