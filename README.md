@@ -124,4 +124,4 @@ MIT
 
 ---
 
-Built by [Isaac](https://aisaac.pages.dev) — AI Transformation consulting.
+Built by [Isaac](https://sancovp.github.io/aisaac/) — AI Transformation consulting.
