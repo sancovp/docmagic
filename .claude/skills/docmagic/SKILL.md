@@ -16,32 +16,36 @@ AI agents fail not from lack of capability but from structural blindness:
 - **Search ≠ reading**: You find a search result and assume the execution boundary is closed. It isn't.
 - **Invisible side effects**: Your tool calls trigger hooks, state writes, graph updates. You think you edited a file.
 
-## Tools
+## Scripts
 
-You have the `docmagic` MCP server equipped. Use these tools:
+Run these via bash. Requires `pip install docmagic`.
 
-| Tool | What it does |
-|------|-------------|
-| `docmagic_scan(path)` | Full scan: AST + call graph + hidden connections |
-| `docmagic_hidden(path)` | Find invisible coupling across 7 categories |
-| `docmagic_stale(path)` | Find docstrings/comments that lie about code behavior |
-| `docmagic_annotate(path)` | Add `# DOCMAGIC:` breadcrumbs to source files |
-| `docmagic_boundary(path, file)` | Trace complete execution boundary before editing |
+```bash
+# Full scan — hidden connections + annotation score
+python3 .claude/skills/docmagic/scripts/scan.py /path/to/repo
+
+# Detailed hidden connection breakdown by category
+python3 .claude/skills/docmagic/scripts/hidden.py /path/to/repo
+
+# Generate # DOCMAGIC: annotations (dry run)
+python3 .claude/skills/docmagic/scripts/annotate.py /path/to/repo
+
+# Apply annotations to source files
+python3 .claude/skills/docmagic/scripts/annotate.py /path/to/repo --apply
+```
 
 ## Protocol
 
 Before editing any file:
 
-1. `docmagic_scan(path)` — get the full picture
-2. `docmagic_hidden(path)` — see what's invisible
-3. `docmagic_boundary(path, file)` — trace callers, callees, side effects
-4. Only THEN touch code
+1. Run `scan.py` on the repo — get the full picture
+2. Run `hidden.py` — see what's invisible
+3. Only THEN touch code
 
 After an AI-heavy coding session:
 
-1. `docmagic_stale(path)` — find what drifted
-2. `docmagic_annotate(path, dry_run=True)` — preview repairs
-3. `docmagic_annotate(path, dry_run=False)` — apply repairs
+1. Run `annotate.py` — preview repairs
+2. Run `annotate.py --apply` — add breadcrumbs to source
 
 ## The Core Invariant
 
