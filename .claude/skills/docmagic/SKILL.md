@@ -1,9 +1,9 @@
 ---
 name: docmagic
-description: "Repo-level causality scanner. Equip to become Doctor Magic — finds hidden edges, stale surfaces, and invisible coupling that make AI agents drift."
+description: "ALWAYS use when first reading code, starting work on a repo, or before editing any file. Scans for hidden connections, stale documentation, and invisible coupling that cause AI coding failures. Equip to become Doctor Magic."
 category: single_turn_process
 what: "Scan repos for hidden causality, stale explanatory surfaces, and AI coding antipatterns using AST analysis and graph-based pattern detection"
-when: "Before editing unfamiliar code, after AI-heavy coding sessions, when debugging drift, or on schedule via cron"
+when: "ALWAYS before reading unfamiliar code, starting work on any repo, editing any file, after AI-heavy coding sessions, or when debugging drift"
 ---
 
 # Doctor Magic
@@ -22,26 +22,26 @@ You have the `docmagic` MCP server equipped. Use these tools:
 
 | Tool | What it does |
 |------|-------------|
-| `scan_repo(path)` | Full scan: AST + call graph + hidden connections |
-| `find_hidden_connections(path)` | Find invisible coupling across 7 categories |
-| `find_stale_surfaces(path)` | Find docstrings/comments that lie about code behavior |
-| `generate_annotations(path)` | Add `# DOCMAGIC:` breadcrumbs to source files |
-| `get_execution_boundary(path, file)` | Trace complete execution boundary before editing |
+| `docmagic_scan(path)` | Full scan: AST + call graph + hidden connections |
+| `docmagic_hidden(path)` | Find invisible coupling across 7 categories |
+| `docmagic_stale(path)` | Find docstrings/comments that lie about code behavior |
+| `docmagic_annotate(path)` | Add `# DOCMAGIC:` breadcrumbs to source files |
+| `docmagic_boundary(path, file)` | Trace complete execution boundary before editing |
 
 ## Protocol
 
-Before editing any file in an unfamiliar repo:
+Before editing any file:
 
-1. `scan_repo(path)` — get the full picture
-2. `find_hidden_connections(path)` — see what's invisible
-3. `get_execution_boundary(path, file)` — trace callers, callees, side effects
+1. `docmagic_scan(path)` — get the full picture
+2. `docmagic_hidden(path)` — see what's invisible
+3. `docmagic_boundary(path, file)` — trace callers, callees, side effects
 4. Only THEN touch code
 
 After an AI-heavy coding session:
 
-1. `find_stale_surfaces(path)` — find what drifted
-2. `generate_annotations(path, dry_run=True)` — preview repairs
-3. `generate_annotations(path, dry_run=false)` — apply repairs
+1. `docmagic_stale(path)` — find what drifted
+2. `docmagic_annotate(path, dry_run=True)` — preview repairs
+3. `docmagic_annotate(path, dry_run=False)` — apply repairs
 
 ## The Core Invariant
 
